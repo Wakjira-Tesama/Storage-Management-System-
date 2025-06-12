@@ -110,3 +110,41 @@ $analytics = $conn->query("SELECT role, COUNT(*) as total FROM users GROUP BY ro
         </table>
     </div>
 </section>
+
+<!-- Section: System Analytics -->
+<section id="analytics" class="section" style="display: none;">
+    <h3>System Analytics</h3>
+    <table>
+        <tr><th>Role</th><th>Total Users</th></tr>
+        <?php while($a = $analytics->fetch_assoc()): ?>
+        <tr>
+            <td><?= $a['role'] ?></td>
+            <td><?= $a['total'] ?></td>
+        </tr>
+        <?php endwhile; ?>
+    </table>
+</section>
+
+<!-- Section: Activity & Log Monitoring -->
+<section id="logs" class="section" style="display: none;">
+    <h3>Activity & Log Monitoring</h3>
+    <div style="max-height: 300px; overflow-y: auto;">
+        <table>
+            <thead>
+                <tr><th>User</th><th>Activity</th><th>Time</th></tr>
+            </thead>
+            <tbody>
+                <?php while($l = $logs->fetch_assoc()): ?>
+                <tr>
+                    <td><?= $l['username'] ?></td>
+                    <td><?= $l['activity'] ?></td>
+                    <td><?= $l['timestamp'] ?></td>
+                </tr>
+                <?php endwhile; ?>
+            </tbody>
+        </table>
+    </div>
+</section>
+<script src="script.js"></script>
+</body>
+</html>

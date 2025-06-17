@@ -28,3 +28,33 @@ if (isset($_POST['submit_request'])) {
 // === View All My Requests ===
 $my_requests = $conn->query("SELECT * FROM item_requests WHERE requester = '$requester' ORDER BY timestamp DESC");
 ?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Supplier Dashboard</title>
+    <link rel="stylesheet" href="stylee.css">
+</head>
+<body>
+
+<h2>Supplier Dashboard</h2>
+<div class="logout">
+    <p>Welcome, <?= $_SESSION['username'] ?> | <a href="logout.php">Logout</a></p>
+</div>
+<nav class="admin-nav">
+    <ul>
+        <li><a href="#" class="tab-link" data-target="newitem" onclick="showSection('newitem', this)">Submit New Item Request</a></li>
+        <li><a href="#" class="tab-link" onclick="showSection('req', this)">My Request</a></li>
+    </ul>
+</nav>
+<div id="newitem" class="section" >
+<section>
+    <h3>Submit New Item Request</h3>
+    <form method="post">
+        <input type="text" name="item_name" placeholder="Item Name" required>
+        <input type="number" name="quantity" placeholder="Quantity" min="1" required>
+        <input type="number" name="price" step="0.01" min="0" placeholder="Unit Price" required>
+        <input type="text" name="supplier" placeholder="Supplier Name" required>
+        <button type="submit" name="submit_request">Submit Request</button>
+    </form>
+</section>
+</div>

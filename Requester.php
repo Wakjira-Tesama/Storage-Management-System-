@@ -58,3 +58,29 @@ $my_requests = $conn->query("SELECT * FROM item_requests WHERE requester = '$req
     </form>
 </section>
 </div>
+<div id="req" class="section">
+<section >
+<h3>My Requests</h3>
+<table>
+    <tr><th>ID</th><th>Item</th><th>Quantity</th><th>Price</th><th>Status</th><th>Requested At</th></tr>
+    <?php while($r = $my_requests->fetch_assoc()): ?>
+    <tr>
+        <td><?= $r['id'] ?></td>
+        <td><?= $r['item_name'] ?></td>
+        <td><?= $r['quantity'] ?></td>
+        <td><?= $r['price'] ?></td>
+        <td>
+            <span class="status-<?= strtolower($r['status']) ?>">
+                <?= $r['status'] ?>
+            </span>
+        </td>
+        <td><?= $r['timestamp'] ?></td>
+    </tr>
+    <?php endwhile; ?>
+</table>
+</section>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

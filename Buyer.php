@@ -27,3 +27,47 @@ if (isset($_POST['buy_item'])) {
         $stmt->execute();
     }
 }
+// === My Request History ===
+$pending_requests = $conn->query("SELECT * FROM branch_request WHERE requester = '$buyer' AND status = 'Pending'");
+$approved_requests = $conn->query("SELECT * FROM branch_request WHERE requester = '$buyer' AND status = 'Approved'");
+
+// === My Branch Inventory View ===
+$branch_inventory = $conn->query("SELECT item_name, quantity, unit_price FROM branch_inventory ORDER BY timestamp DESC");
+
+// === Item Dropdown List ===
+$item_list = $conn->query("SELECT item_name FROM branch_inventory");
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Buyer Dashboard</title>
+    <link rel="stylesheet" href="stylee.css">
+    <style>
+        .green-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .green-btn:hover {
+            background-color: #218838;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        h3 {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>

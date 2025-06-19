@@ -96,3 +96,55 @@ $item_list = $conn->query("SELECT item_name FROM branch_inventory");
         <?php endwhile; ?>
     </table>
 </section>
+<section id="bi" class="section">
+    <h3>Buy Item</h3>
+    <form method="post">
+        <select name="item_name" required>
+            <option value="">-- Select Item --</option>
+            <?php while($item = $item_list->fetch_assoc()): ?>
+                <option value="<?= $item['item_name'] ?>"><?= $item['item_name'] ?></option>
+            <?php endwhile; ?>
+        </select>
+        <input type="number" name="quantity" min="1" placeholder="Quantity" required>
+        <button type="submit" name="buy_item" class="green-btn">Buy</button>
+    </form>
+</section>
+
+<section id="pr" class="section">
+    <h3>Pending Requests</h3>
+    <table>
+        <tr><th>Item Name</th><th>Quantity</th><th>Price</th><th>Status</th></tr>
+        <?php while($p = $pending_requests->fetch_assoc()): ?>
+            <tr>
+                <td><?= $p['item_name'] ?></td>
+                <td><?= $p['quantity'] ?></td>
+                <td><?= $p['price'] ?></td>
+                <td><?= $p['status'] ?></td>
+            </tr>
+        <?php endwhile; ?>
+    </table>
+</section>
+<section id="bill" class="section">
+    <h3>Approved Items - Bill</h3>
+    <table>
+        <tr><th>Item Name</th><th>Quantity</th><th>Price</th><th>Total</th></tr>
+        <?php 
+        $total_amount = 0;
+        while($a = $approved_requests->fetch_assoc()): 
+            $line_total = $a['quantity'] * $a['price'];
+            $total_amount += $line_total;
+        ?>
+            <tr>
+               <td><a href="bill.php?id=<?= $a['id'] ?>" target="_blank"><?= $a['item_name'] ?></a></td>
+               <td><?= $a['quantity'] ?></td>
+               <td><?= $a['price'] ?></td>
+                <td><?= number_format($line_total, 2) ?></td>
+            </tr>
+
+        <?php endwhile; ?>
+        <tr><td colspan="3"><strong>Total</strong></td><td><strong><?= number_format($total_amount, 2) ?></strong></td></tr>
+    </table>
+</section>
+<script src="script.js"></script>
+</body>
+</html>

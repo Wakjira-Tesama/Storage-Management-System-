@@ -71,3 +71,28 @@ $item_list = $conn->query("SELECT item_name FROM branch_inventory");
         }
     </style>
 </head>
+<body>
+
+<h2>Buyer Dashboard</h2>
+<p class="logout">Welcome, <?= $_SESSION['username'] ?> | <a href="logout.php">Logout</a></p>
+<nav class="admin-nav">
+    <ul>
+        <li><a href="#" class="tab-link" data-target="tore" onclick="showSection('tore', this)">>My Branch Store</a></li>
+        <li><a href="#" class="tab-link" onclick="showSection('bi', this)">Buy Item</a></li>
+        <li><a href="#" class="tab-link" onclick="showSection('pr', this)">Pending Requests</a></li>
+        <li><a href="#" class="tab-link" onclick="showSection('bill', this)">Approved Items - Bill</a></li>
+    </ul>
+</nav>
+<section id="tore" class="section">
+    <h3>My Branch Store</h3>
+    <table>
+        <tr><th>Item Name</th><th>Quantity</th><th>Price</th></tr>
+        <?php while($row = $branch_inventory->fetch_assoc()): ?>
+            <tr>
+                <td><?= $row['item_name'] ?></td>
+                <td><?= $row['quantity'] ?></td>
+                <td><?= $row['unit_price'] ?></td>
+            </tr>
+        <?php endwhile; ?>
+    </table>
+</section>

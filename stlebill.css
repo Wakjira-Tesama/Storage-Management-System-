@@ -1,0 +1,16 @@
+body {
+  font-family: Arial, sans-serif;
+  width: 700px;
+  margin: auto;
+  border: 1px solid #ccc;
+  padding: 30px;
+}
+h2,
+h4 {
+  text-align: center;
+}
+table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}

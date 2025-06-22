@@ -14,3 +14,23 @@ table {
   margin-top: 20px;
   border-collapse: collapse;
 }
+th,
+td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+#totals {
+  text-align: right;
+  margin-top: 20px;
+}
+#totals td {
+  padding: 8px;
+}
+.highlight {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  text-align: right;
+  font-size: 18px;
+}

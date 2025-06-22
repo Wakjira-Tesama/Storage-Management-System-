@@ -1,0 +1,31 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #7b2ff7, #00c6ff);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login_container {
+  text-align: center;
+}
+
+.login_title {
+  font-size: 28px;
+  color: #fff;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.login_page {
+  background-color: #ffffff;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  width: 350px;
+  box-sizing: border-box;
+  display: inline-block;
+}

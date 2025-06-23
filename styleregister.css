@@ -19,3 +19,27 @@ body {
   margin-bottom: 20px;
   font-weight: bold;
 }
+.register_page {
+  background-color: #ffffff;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  width: 350px;
+  box-sizing: border-box;
+  display: inline-block;
+}
+
+.register_page input[type="text"],
+.register_page input[type="email"],
+.register_page input[type="password"],
+.register_page input[type="date"],
+.register_page input[type="tel"],
+.register_page select {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  box-sizing: border-box;
+}

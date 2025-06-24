@@ -19,6 +19,7 @@ body {
   margin-bottom: 20px;
   font-weight: bold;
 }
+
 .register_page {
   background-color: #ffffff;
   padding: 40px 30px;
@@ -42,4 +43,34 @@ body {
   border-radius: 6px;
   font-size: 16px;
   box-sizing: border-box;
+}
+
+.register_page button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background-color: #1a73e8;
+  border: none;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.register_page button[type="submit"]:hover {
+  background-color: #1669c1;
+}
+
+.login-link {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.login-link a {
+  color: #1a73e8;
+  text-decoration: none;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
 }

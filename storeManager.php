@@ -51,4 +51,91 @@ if (isset($_POST['update_item'])) {
 
 if (isset($_POST['approve_request'])) {
     $id = $_POST['request_id'];
+ // Get the request details
+    $req_result = $conn->query("SELECT * FROM item_requests WHERE id = $id");
+    $req = $req_result->fetch_assoc();
 
+    if ($req) {
+        $item = $req['item_name'];
+        $qty = $req['quantity'];
+        $price = $req['price'];
+        $supplier = $req['supplier'];
+
+        // Check if the same item with the same supplier exists
+        $check = $conn->prepare("SELECT id, quantity FROM inventory WHERE item_name = ? AND supplier = ?");
+        $check->bind_param("ss", $item, $supplier);
+        $check->execute();
+        $result = $check->get_result();
+
+        if ($row = $result->fetch_assoc()) {
+            // Item exists: update quantity
+            $new_qty = $row['quantity'] + $qty;
+            $stmt = $conn->prepare("UPDATE inventory SET quantity = ? WHERE id = ?");
+            $stmt->bind_param("ii", $new_qty, $row['id']);
+            $stmt->execute();
+
+            $conn->query("INSERT INTO activity_log (username, activity) VALUES ('$manager', 'Approved request ID $id and updated quantity for existing item $item (Supplier: $supplier)')");
+        } else {
+            // Item doesn't exist: insert new row
+            $stmt = $conn->prepare("INSERT INTO inventory (item_name, quantity, unit_price, supplier) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("sids", $item, $qty, $price, $supplier);
+            $stmt->execute();
+
+            $conn->query("INSERT INTO activity_log (username, activity) VALUES ('$manager', 'Approved request ID $id and added new item $item (Supplier: $supplier)')");
+        }
+
+        // Mark the request as approved
+        $conn->query("UPDATE item_requests SET status='Approved' WHERE id=$id");
+    }
+}
+
+if (isset($_POST['reject_request'])) {
+    $id = $_POST['request_id'];
+    $conn->query("UPDATE item_requests SET status='Rejected' WHERE id=$id");
+    $conn->query("INSERT INTO activity_log (username, activity) VALUES ('$manager', 'Rejected request ID $id')");
+}
+
+if (isset($_POST['approve_branch_request'])) {
+    $id = $_POST['request_id'];
+
+    $req = $conn->query("SELECT * FROM branch_request WHERE id = $id")->fetch_assoc();
+    if ($req) {
+        $item = $req['item_name'];
+        $qty = $req['quantity'];
+        $price = $req['price'];
+
+        // Check current inventory
+        $inv = $conn->query("SELECT quantity, unit_price, supplier FROM inventory WHERE item_name = '$item'")->fetch_assoc();
+        if (!$inv || $inv['quantity'] < $qty) {
+            // Reject if not enough stock
+            $conn->query("UPDATE branch_request SET status='Rejected' WHERE id = $id");
+            $conn->query("INSERT INTO activity_log (username, activity) VALUES ('$manager', 'Automatically rejected branch request ID $id due to insufficient stock')");
+        } else {
+            // Deduct from main inventory
+            $conn->query("UPDATE inventory SET quantity = quantity - $qty WHERE item_name = '$item'");
+
+            $unit_price = $inv['unit_price'];
+            $supplier = $inv['supplier'];
+
+            // ✅ Update or insert into branch_inventory
+            $stmt = $conn->prepare("SELECT id, quantity FROM branch_inventory WHERE item_name = ? AND supplier = ?");
+            $stmt->bind_param("ss", $item, $supplier);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            if ($row = $result->fetch_assoc()) {
+                $new_qty = $row['quantity'] + $qty;
+                $update_stmt = $conn->prepare("UPDATE branch_inventory SET quantity = ?, unit_price = ?, timestamp = NOW() WHERE id = ?");
+                $update_stmt->bind_param("dii", $new_qty, $unit_price, $row['id']);
+                $update_stmt->execute();
+            } else {
+                $insert_stmt = $conn->prepare("INSERT INTO branch_inventory (item_name, quantity, unit_price, supplier, timestamp) VALUES (?, ?, ?, ?, NOW())");
+                $insert_stmt->bind_param("sdds", $item, $qty, $unit_price, $supplier);
+                $insert_stmt->execute();
+            }
+
+            $conn->query("UPDATE branch_request SET status='Approved' WHERE id = $id");
+            $conn->query("INSERT INTO activity_log (username, activity) VALUES ('$manager', 'Approved branch request ID $id')");
+        }
+    }
+}

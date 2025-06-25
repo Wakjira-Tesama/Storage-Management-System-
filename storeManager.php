@@ -177,3 +177,15 @@ $branch_report = $conn->query(" SELECT item_name, SUM(quantity) as total_request
         <li><a href="#" class="tab-link" onclick="showSection('report', this)">Usage Report (Approved)</a></li>
     </ul>
 </nav>
+
+<section id="additem" class="section">
+    <h3>Add Inventory Item</h3>
+    <form method="post">
+        <input type="text" name="item_name" placeholder="Item Name" required>
+        <input type="number" name="quantity" placeholder="Quantity" min="1" required>
+        <input type="text" name="unit_price" placeholder="Unit Price" required>
+        <input type="text" name="supplier" placeholder="Supplier" required>
+        <button type="submit" name="add_item">Add Item</button>
+    </form>
+</section>
+

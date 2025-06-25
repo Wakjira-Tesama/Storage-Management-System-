@@ -139,3 +139,41 @@ if (isset($_POST['approve_branch_request'])) {
         }
     }
 }
+
+if (isset($_POST['reject_branch_request'])) {
+    $id = $_POST['request_id'];
+    $conn->query("UPDATE branch_request SET status='Rejected' WHERE id = $id");
+    $conn->query("INSERT INTO activity_log (username, activity) VALUES ('$manager', 'Rejected branch request ID $id')");
+}
+
+// === Fetch Data ===
+$inventory = $conn->query("SELECT * FROM inventory");
+$requests = $conn->query("SELECT * FROM item_requests WHERE status = 'Pending'");
+$report = $conn->query("SELECT item_name, SUM(quantity) as total_requested FROM item_requests WHERE status='Approved' GROUP BY item_name");
+$branch_requests = $conn->query("SELECT * FROM branch_request WHERE status = 'Pending'");
+$branch_report = $conn->query(" SELECT item_name, SUM(quantity) as total_requested  FROM branch_request  WHERE status='Approved'  GROUP BY item_name");
+
+
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Store Manager Dashboard</title>
+    <link rel="stylesheet" href="stylee.css">
+    
+</head>
+<body>
+
+<h2>Store Manager Dashboard</h2>
+<div class="logout">
+    <p>Welcome, <?= $_SESSION['username'] ?> | <a href="logout.php">Logout</a></p>
+</div>
+<nav class="admin-nav">
+    <ul>
+        <li><a href="#" class="tab-link" data-target="additem" onclick="showSection('additem', this)">Add Inventory Item</a></li>
+        <li><a href="#" class="tab-link" onclick="showSection('inventory', this)">Current Inventory</a></li>
+        <li><a href="#" class="tab-link" onclick="showSection('requests', this)">Pending Requests</a></li>
+        <li><a href="#" class="tab-link" onclick="showSection('report', this)">Usage Report (Approved)</a></li>
+    </ul>
+</nav>

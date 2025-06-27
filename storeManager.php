@@ -28,6 +28,7 @@ if (isset($_POST['add_item'])) {
     $conn->query("INSERT INTO activity_log (username, activity) VALUES ('$manager', 'Added item $name')");
 }
 
+
 if (isset($_POST['delete_item'])) {
     $id = $_POST['item_id'];
     $conn->query("DELETE FROM inventory WHERE id=$id");
@@ -51,7 +52,8 @@ if (isset($_POST['update_item'])) {
 
 if (isset($_POST['approve_request'])) {
     $id = $_POST['request_id'];
- // Get the request details
+
+    // Get the request details
     $req_result = $conn->query("SELECT * FROM item_requests WHERE id = $id");
     $req = $req_result->fetch_assoc();
 
@@ -88,6 +90,7 @@ if (isset($_POST['approve_request'])) {
         $conn->query("UPDATE item_requests SET status='Approved' WHERE id=$id");
     }
 }
+
 
 if (isset($_POST['reject_request'])) {
     $id = $_POST['request_id'];
@@ -140,6 +143,7 @@ if (isset($_POST['approve_branch_request'])) {
     }
 }
 
+
 if (isset($_POST['reject_branch_request'])) {
     $id = $_POST['request_id'];
     $conn->query("UPDATE branch_request SET status='Rejected' WHERE id = $id");
@@ -178,6 +182,7 @@ $branch_report = $conn->query(" SELECT item_name, SUM(quantity) as total_request
     </ul>
 </nav>
 
+
 <section id="additem" class="section">
     <h3>Add Inventory Item</h3>
     <form method="post">
@@ -188,4 +193,3 @@ $branch_report = $conn->query(" SELECT item_name, SUM(quantity) as total_request
         <button type="submit" name="add_item">Add Item</button>
     </form>
 </section>
-

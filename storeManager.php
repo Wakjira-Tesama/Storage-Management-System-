@@ -193,3 +193,36 @@ $branch_report = $conn->query(" SELECT item_name, SUM(quantity) as total_request
         <button type="submit" name="add_item">Add Item</button>
     </form>
 </section>
+<section id="inventory" class="section">
+    <h3>Current Inventory</h3>
+    <input type="text" id="searchInput" placeholder="Search by item name " onkeyup="filterUsers()" style="margin-bottom:10px; padding:5px; width:200px;">
+    <div style="max-height: 300px; overflow-y: auto;">
+    <table id="usersTable">
+       <thead><tr><th>ID</th><th>Item Name</th><th>Quantity</th><th>Price</th><th>Supplier</th><th>Action</th><th>Action</th></tr> </thead> 
+        <?php while($i = $inventory->fetch_assoc()): ?>
+        <tr>
+            <td><?= $i['id'] ?></td>
+            <td><?= $i['item_name'] ?></td>
+            <td><?= $i['quantity'] ?></td>
+            <td><?= $i['unit_price'] ?></td>
+            <td><?= $i['supplier'] ?></td>
+            <td>
+                <form method="post" style="display:inline;">
+                    <input type="hidden" name="item_id" value="<?= $i['id'] ?>">
+                    <button type="submit" name="delete_item" onclick="return confirm('Delete this item?')">Delete</button>
+                </form>
+            </td>
+            <td>
+    <form method="post" style="display:inline;">
+        <input type="hidden" name="item_id" value="<?= $i['id'] ?>">
+        <input type="number" name="quantity" min="1" placeholder="Quantity" value="<?= $i['quantity'] ?>" required>
+        <input type="text" name="unit_price" min="1" placeholder="Unit Price" value="<?= $i['unit_price'] ?>" required>
+        <button type="submit" name="update_item">Update</button>
+    </form>
+</td>
+
+        </tr>
+        <?php endwhile; ?>
+    </table>
+    </div>
+</section>

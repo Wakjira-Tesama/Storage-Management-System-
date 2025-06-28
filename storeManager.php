@@ -279,3 +279,5 @@ $branch_report = $conn->query(" SELECT item_name, SUM(quantity) as total_request
         <?php endwhile; ?>
     </table>
 </section>
+</div>
+

@@ -253,3 +253,29 @@ $branch_report = $conn->query(" SELECT item_name, SUM(quantity) as total_request
         <?php endwhile; ?>
     </table>
 </section>
+
+<section>
+    <h3>Pending Branch Requests</h3>
+    <table>
+        <tr><th>ID</th><th>Item</th><th>Qty</th><th>Price</th><th>Time</th><th>Action</th></tr>
+        <?php while($r = $branch_requests->fetch_assoc()): ?>
+        <tr>
+            <td><?= $r['id'] ?></td>
+            <td><?= $r['item_name'] ?></td>
+            <td><?= $r['quantity'] ?></td>
+            <td><?= $r['price'] ?></td>
+            <td><?= $r['timestamp'] ?></td>
+            <td>
+                <form method="post" style="display:inline;">
+                    <input type="hidden" name="request_id" value="<?= $r['id'] ?>">
+                    <button type="submit" name="approve_branch_request">Approve</button>
+                </form>
+                <form method="post" style="display:inline;">
+                    <input type="hidden" name="request_id" value="<?= $r['id'] ?>">
+                    <button type="submit" name="reject_branch_request">Reject</button>
+                </form>
+            </td>
+        </tr>
+        <?php endwhile; ?>
+    </table>
+</section>

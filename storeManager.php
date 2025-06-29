@@ -306,7 +306,7 @@ $branch_report = $conn->query(" SELECT item_name, SUM(quantity) as total_request
     </table>
 </section>
 </div>
-
+<script src="script.js"></script>
 </body>
 </html>
 

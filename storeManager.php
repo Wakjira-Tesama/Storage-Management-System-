@@ -280,4 +280,33 @@ $branch_report = $conn->query(" SELECT item_name, SUM(quantity) as total_request
     </table>
 </section>
 </div>
+<div id="report" class="section">
+<section>
+    <h3>Usage Report (Approved Requests)</h3>
+    <table>
+        <tr><th>Item</th><th>Total Requested</th></tr>
+        <?php while($rep = $report->fetch_assoc()): ?>
+        <tr>
+            <td><?= $rep['item_name'] ?></td>
+            <td><?= $rep['total_requested'] ?></td>
+        </tr>
+        <?php endwhile; ?>
+    </table>
+</section>
+<section>
+    <h3>Usage Report (Approved Branch Requests)</h3>
+    <table>
+        <tr><th>Item</th><th>Total Requested</th></tr>
+        <?php while($rep = $branch_report->fetch_assoc()): ?>
+        <tr>
+            <td><?= $rep['item_name'] ?></td>
+            <td><?= $rep['total_requested'] ?></td>
+        </tr>
+        <?php endwhile; ?>
+    </table>
+</section>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
 

@@ -19,3 +19,7 @@ if (isset($_POST['suggest_item'])) {
 
     $conn->query("INSERT INTO activity_log (username, activity) VALUES ('$viewer', 'Suggested item: $item')");
 }
+// === Fetch Inventory and Suggestions ===
+$inventory = $conn->query("SELECT * FROM inventory ORDER BY quantity DESC");
+$suggestions = $conn->query("SELECT * FROM item_suggestions WHERE viewer = '$viewer' ORDER BY timestamp DESC");
+?>

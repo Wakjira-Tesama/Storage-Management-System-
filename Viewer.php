@@ -8,3 +8,14 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'Viewer') {
 }
 
 $viewer = $_SESSION['username'];
+// === Handle Suggestion ===
+if (isset($_POST['suggest_item'])) {
+    $item = $_POST['item_name'];
+    $reason = $_POST['reason'];
+
+    $stmt = $conn->prepare("INSERT INTO item_suggestions (viewer, item_name, reason) VALUES (?, ?, ?)");
+    $stmt->bind_param("sss", $viewer, $item, $reason);
+    $stmt->execute();
+
+    $conn->query("INSERT INTO activity_log (username, activity) VALUES ('$viewer', 'Suggested item: $item')");
+}

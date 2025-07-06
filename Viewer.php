@@ -34,3 +34,7 @@ $suggestions = $conn->query("SELECT * FROM item_suggestions WHERE viewer = '$vie
     
 </head>
 <body>
+<h2>Viewer Dashboard</h2>
+<div class="logout">
+    <p>Welcome, <?= $_SESSION['username'] ?> | <a href="logout.php">Logout</a></p>
+</div>

@@ -25,3 +25,12 @@ if (isset($_POST['suggest_item'])) {
 $inventory = $conn->query("SELECT * FROM inventory ORDER BY quantity DESC");
 $suggestions = $conn->query("SELECT * FROM item_suggestions WHERE viewer = '$viewer' ORDER BY timestamp DESC");
 ?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Viewer Dashboard</title>
+    <link rel="stylesheet" href="stylee.css">
+    
+</head>
+<body>

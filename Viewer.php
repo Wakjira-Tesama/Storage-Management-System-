@@ -38,3 +38,10 @@ $suggestions = $conn->query("SELECT * FROM item_suggestions WHERE viewer = '$vie
 <div class="logout">
     <p>Welcome, <?= $_SESSION['username'] ?> | <a href="logout.php">Logout</a></p>
 </div>
+<nav class="admin-nav">
+    <ul>
+        <li><a href="#" class="tab-link" data-target="AI" onclick="showSection('AI', this)">Available Inventory</a></li>
+        <li><a href="#" class="tab-link" onclick="showSection('SI', this)">Suggest an Item</a></li>
+        <li><a href="#" class="tab-link" onclick="showSection('MS', this)">My Suggestions</a></li>
+    </ul>
+</nav>

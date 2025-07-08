@@ -45,3 +45,18 @@ $suggestions = $conn->query("SELECT * FROM item_suggestions WHERE viewer = '$vie
         <li><a href="#" class="tab-link" onclick="showSection('MS', this)">My Suggestions</a></li>
     </ul>
 </nav>
+<section id="AI" class="section">
+    <h3>Available Inventory</h3>
+    <table>
+        <tr><th>ID</th><th>Item Name</th><th>Quantity</th><th>Unit Price</th><th>Supplier</th></tr>
+        <?php while($item = $inventory->fetch_assoc()): ?>
+        <tr>
+            <td><?= $item['id'] ?></td>
+            <td><?= $item['item_name'] ?></td>
+            <td><?= $item['quantity'] ?></td>
+            <td><?= $item['unit_price'] ?></td>
+            <td><?= $item['supplier'] ?></td>
+        </tr>
+        <?php endwhile; ?>
+    </table>
+</section>

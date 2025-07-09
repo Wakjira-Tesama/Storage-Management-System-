@@ -60,3 +60,11 @@ $suggestions = $conn->query("SELECT * FROM item_suggestions WHERE viewer = '$vie
         <?php endwhile; ?>
     </table>
 </section>
+<section id="SI" class="section">
+    <h3>Suggest an Item</h3>
+    <form method="post">
+        <input type="text" name="item_name" placeholder="Suggested Item Name" required>
+        <textarea name="reason" placeholder="Why is this item needed?" required></textarea>
+        <button type="submit" name="suggest_item">Submit Suggestion</button>
+    </form>
+</section>

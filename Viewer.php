@@ -68,3 +68,9 @@ $suggestions = $conn->query("SELECT * FROM item_suggestions WHERE viewer = '$vie
         <button type="submit" name="suggest_item">Submit Suggestion</button>
     </form>
 </section>
+<section id="MS" class="section">
+    <h3>My Suggestions</h3>
+    <table>
+        <tr><th>ID</th><th>Item Name</th><th>Reason</th><th>Suggested At</th></tr>
+        <?php while($sug = $suggestions->fetch_assoc()): ?>
+        <tr>

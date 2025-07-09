@@ -74,3 +74,11 @@ $suggestions = $conn->query("SELECT * FROM item_suggestions WHERE viewer = '$vie
         <tr><th>ID</th><th>Item Name</th><th>Reason</th><th>Suggested At</th></tr>
         <?php while($sug = $suggestions->fetch_assoc()): ?>
         <tr>
+                  <td><?= $sug['id'] ?></td>
+            <td><?= $sug['item_name'] ?></td>
+            <td><?= $sug['reason'] ?></td>
+            <td><?= $sug['timestamp'] ?></td>
+        </tr>
+        <?php endwhile; ?>
+    </table>
+</section>

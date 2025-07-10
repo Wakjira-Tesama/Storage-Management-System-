@@ -82,3 +82,7 @@ $suggestions = $conn->query("SELECT * FROM item_suggestions WHERE viewer = '$vie
         <?php endwhile; ?>
     </table>
 </section>
+<script src="script.js"></script>
+
+</body>
+</html>

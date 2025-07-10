@@ -34,6 +34,7 @@ $suggestions = $conn->query("SELECT * FROM item_suggestions WHERE viewer = '$vie
     
 </head>
 <body>
+
 <h2>Viewer Dashboard</h2>
 <div class="logout">
     <p>Welcome, <?= $_SESSION['username'] ?> | <a href="logout.php">Logout</a></p>
@@ -45,6 +46,7 @@ $suggestions = $conn->query("SELECT * FROM item_suggestions WHERE viewer = '$vie
         <li><a href="#" class="tab-link" onclick="showSection('MS', this)">My Suggestions</a></li>
     </ul>
 </nav>
+
 <section id="AI" class="section">
     <h3>Available Inventory</h3>
     <table>
@@ -60,6 +62,7 @@ $suggestions = $conn->query("SELECT * FROM item_suggestions WHERE viewer = '$vie
         <?php endwhile; ?>
     </table>
 </section>
+
 <section id="SI" class="section">
     <h3>Suggest an Item</h3>
     <form method="post">
@@ -68,13 +71,14 @@ $suggestions = $conn->query("SELECT * FROM item_suggestions WHERE viewer = '$vie
         <button type="submit" name="suggest_item">Submit Suggestion</button>
     </form>
 </section>
+
 <section id="MS" class="section">
     <h3>My Suggestions</h3>
     <table>
         <tr><th>ID</th><th>Item Name</th><th>Reason</th><th>Suggested At</th></tr>
         <?php while($sug = $suggestions->fetch_assoc()): ?>
         <tr>
-                  <td><?= $sug['id'] ?></td>
+            <td><?= $sug['id'] ?></td>
             <td><?= $sug['item_name'] ?></td>
             <td><?= $sug['reason'] ?></td>
             <td><?= $sug['timestamp'] ?></td>

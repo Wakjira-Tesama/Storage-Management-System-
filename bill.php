@@ -1,21 +1,3 @@
-<?php
-include("db.php");
-
-if (!isset($_GET['id'])) {
-    die("Missing request ID.");
-}
-
-$request_id = intval($_GET['id']);
-
-$stmt = $conn->prepare("SELECT * FROM branch_request WHERE id = ?");
-$stmt->bind_param("i", $request_id);
-$stmt->execute();
-$result = $stmt->get_result();
-$data = $result->fetch_assoc();
-
-if (!$data || $data['status'] !== 'Approved') {
-    die("Invalid or unapproved request.");
-}
 
 $total = $data['quantity'] * $data['price'];
 ?>

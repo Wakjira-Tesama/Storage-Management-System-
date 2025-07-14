@@ -52,16 +52,7 @@ $total = $data['quantity'] * $data['price'];
     </tr>
 </table>
 
-<table id="totals">
-    <tr><td>Subtotal:</td><td>$<?= number_format($total, 2) ?></td></tr>
-    <tr><td>Discount:</td><td>$0.00</td></tr>
-    <tr><td>Tax:</td><td>$0.00</td></tr>
-    <tr><td>Paid:</td><td>$0.00</td></tr>
-</table>
 
-<div class="highlight">
-    Total: $<?= number_format($total, 2) ?>
-</div>
 
 </body>
 </html>

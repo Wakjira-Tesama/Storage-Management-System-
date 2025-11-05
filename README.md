@@ -187,19 +187,17 @@ Cloud deployment using AWS or Vercel
 
 👨‍💻 Author
 
-Wakjira Tesama
-Full-Stack Web Developer | Software Engineer
 
-📧 wakjiratesama@gmail.com
 
-🌐 GitHub Profile
+**Wakjira Tesama**  
+Full-Stack Web Developer | Software Engineer  
 
-💼 LinkedIn Profile
+📧 [wakjiratesama@gmail.com](mailto:wakjiratesama@gmail.com)  
+🌐 [GitHub Profile](https://github.com/Wakjira-Tesama)  
+💼 [LinkedIn Profile](https://www.linkedin.com/in/wakjira-tesama/)
 
-📜 License
 
-This project is released under the MIT License
-.
+
 
 
 ## 🧭 System Architecture
